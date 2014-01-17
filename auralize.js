@@ -16,7 +16,7 @@ function gotStream(stream) {
     ir_request.onload = function () {
         console.log("Download complete");
         convolver.buffer = audioContext.createBuffer(ir_request.response, false);
-        document.getElementById('button').style.display = ""
+        document.getElementById('button').style.display = "";
     }
     ir_request.send();
     console.log("Downloading...");
