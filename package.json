@@ -1,0 +1,24 @@
+{
+  "name": "auralizr",
+  "version": "0.1.0",
+  "description": "auralizejs ==========",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "grunt --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/notthetup/auralizr.git"
+  },
+  "author": "Chinmay Pendharkar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/notthetup/auralizr/issues"
+  },
+  "homepage": "https://github.com/notthetup/auralizr",
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-cli": "*",
+    "grunt-contrib-connect": "*"
+  }
+}
