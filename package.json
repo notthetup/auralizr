@@ -1,26 +1,42 @@
 {
   "name": "auralizr",
-  "version": "0.1.0",
-  "description": "auralizejs ==========",
-  "main": "Gruntfile.js",
-  "scripts": {
-    "test": "grunt --verbose"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/notthetup/auralizr.git"
-  },
-  "author": "Chinmay Pendharkar",
-  "license": "MIT",
-  "bugs": {
+	"preferGlobal": true,
+	"version": "0.1.0",
+	"author": "Chinmay Pendharkar",
+	"description": "auralization using webaudioapi",
+	"contributors": [
+	"Chinmay Pendharkar <notthetup@gmail.com>",
+	"Sayanee Basu <sayanee@gmail.com>"
+	],
+	"keywords": [
+	"audio",
+	"webaudioapi",
+	"auralization"
+	],
+	"main": ".",
+	"homepage": "http://github.io/notthetup/auralizr",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/notthetup/auralizr"
+	},
+	"bugs": {
     "url": "https://github.com/notthetup/auralizr/issues"
   },
-  "homepage": "https://github.com/notthetup/auralizr",
   "devDependencies": {
-    "grunt": "*",
-    "grunt-cli": "*",
-    "grunt-contrib-connect": "*",
-    "grunt-contrib-compass": "*",
-    "grunt-contrib-watch": "*"
-  }
+		"browserify" : "3.20.0",
+		"grunt": "~0.4.1",
+		"grunt-contrib-jshint": "*",
+		"grunt-contrib-watch" : "*",
+		"grunt-contrib-connect" : "*",
+		"grunt-contrib-compass": "*",
+		"grunt-contrib-uglify" : "*"
+	},
+	"license": "MIT",
+	"scripts": {
+			"build": "grunt",
+			"start": "grunt serve"
+	},
+	"engines": {
+		"node": ">=0.10"
+	}
 }
