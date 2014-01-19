@@ -1,0 +1,40 @@
+{
+	"name": "auralizr",
+	"preferGlobal": true,
+	"version": "0.0.1",
+	"author": "Chinmay Pendharkar",
+	"description": "auralization using webaudioapi",
+	"contributors": [
+	"Chinmay Pendharkar <notthetup@gmail.com>",
+	"Sayanee Basu <sayanee@gmail.com>"
+	],
+	"keywords": [
+	"audio",
+	"webaudioapi",
+	"auralization"
+	],
+	"main": ".",
+	"homepage": "http://github.io/notthetup/auralizr",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/notthetup/auralizr"
+	},
+	"dependencies" : {
+	},
+	"devDependencies": {
+		"browserify" : "3.20.0",
+		"grunt": "~0.4.1",
+		"grunt-contrib-jshint": "~0.7.0",
+		"grunt-contrib-watch" : " ~0.5.0",
+		"grunt-contrib-connect" : "~0.2.0",
+		"grunt-contrib-uglify" : "~0.2.4"
+	},
+	"license": "MIT",
+	"scripts": {
+			"build": "grunt",
+			"start": "grunt serve"
+	},
+	"engines": {
+		"node": ">=0.10"
+	}
+}
