@@ -1,0 +1,51 @@
+
+.places
+  list-style-type: none
+  padding: 0
+  text-align: center
+  margin: 1em auto 0
+  display: block
+  li
+    display: inline
+    color: $white
+    &:hover
+      cursor: pointer
+    span
+      background: $white
+      border: none
+      display: inline-block
+      border-bottom: 1em solid $white
+      width: 300px
+      height: 300px
+      margin: .3em
+      padding-top: 1.2em
+      font-size: 3em
+      position: relative
+      @include text-shadow(#000 2px 2px 50px)
+      @include filter(grayscale(100%))
+      &:after
+        position: absolute
+        bottom: -1.7em
+        left: .5em
+        color: $black
+        font-size: .5em
+        @include text-shadow($white 0 0 0)
+      &.basement
+        background-image: url(/img/basement.jpg)
+        &:after
+          content: "Basement"
+      &.chapel
+        background-image: url(/img/chapel.jpg)
+        &:after
+          content: "Chapel"
+      &.stairwell
+        background-image: url(/img/stairwell.jpg)
+        &:after
+          content: "Stairwell"
+      &.mausoleum
+        background-image: url(/img/mausoleum.jpg)
+        &:after
+          content: "Mausoleum"
+      &:hover
+        @include filter(grayscale(0%))
+        -webkit-transform: translateY(-10px)

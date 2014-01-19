@@ -1,18 +1,23 @@
 *
   box-sizing: border-box
   margin: 0
+  @include transition-property(all)
+  @include transition-duration(.2s)
+  @include transition-timing-function(ease-in)
 
 body, html
   font-size: 1.15em
-  height: 100%
+  max-height: 100%
   color: $black
+  background: $grey-light
 
 ::selection
-  background: lighten($blue, 40%)
+  background: red
 ::-moz-selection
-  background: lighten($blue, 40%)
+  background: red
 
 img
   margin: 0 auto
   display: block
   max-width: 100%
+
