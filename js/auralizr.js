@@ -1,19 +1,30 @@
+;(function(){
+
 function auralizr() {
-	var isMicEnabled = false;
+	var self = this;
+
+	this.isMicEnabled = false;
+	this.irArray = {};
+	this.startRequest = false;
 
 	window.AudioContext = window.AudioContext || window.webkitAudioContext;
-	var audioContext = new AudioContext();
-	convolver = audioContext.createConvolver();
+	this.audioContext = new AudioContext();
+	this.convolver = this.audioContext.createConvolver();
 
 	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-	navigator.getUserMedia( {audio:true}, gotStream );
-
-	var mediaStreamSource = audioContext.createMediaStreamSource( stream );
-	mediaStreamSource.connect(convolver);
-	isMicEnabled = true;
+	navigator.getUserMedia( {audio:true}, function (stream) {
+		self.isMicEnabled = true;
+		var mediaStreamSource = self.audioContext.createMediaStreamSource( stream );
+		mediaStreamSource.connect(self.convolver);
+		if (self.startRequest){
+			self.start();
+		}
+	} );
 }
 
 auralizr.prototype.load= function(irURL, key, callback) {
+	var self = this;
+
 	var ir_request = new XMLHttpRequest();
 	ir_request.open("GET", irURL, true);
 	ir_request.responseType = "arraybuffer";
@@ -25,25 +36,43 @@ auralizr.prototype.load= function(irURL, key, callback) {
 };
 
 auralizr.prototype.isReady= function(key) {
-	return self.isMicEnabled && self.irArray.hasOwnProperty(key) && self.irArray[key] !== undefined;
+	return this.isMicEnabled && this.irArray.hasOwnProperty(key) && this.irArray[key] !== undefined;
 };
 
 auralizr.prototype.use= function(key) {
-	if ( self.irArray.hasOwnProperty(key) && self.irArray[key] !== undefined)
-		self.convolver.buffer = self.irArray[key];
+	if ( this.irArray.hasOwnProperty(key) && this.irArray[key] !== undefined)
+		this.convolver.buffer = this.irArray[key];
 };
 
 auralizr.prototype.start= function() {
-	if (self.isMicEnabled && self.convolver.buffer !== null)
-		self.convolver.connect(self.audioContext.destination);
+	this.startRequest = true;
+	if (this.isMicEnabled && this.convolver.buffer !== null){
+		console.log("Starting auralizr");
+		this.convolver.connect(this.audioContext.destination);
+		this.startRequest = false;
+	}
+	else
+		console.log("Couldn't start the auralizr");
 };
 
 auralizr.prototype.stop= function() {
-	self.convolver.disconnect();
+	this.startRequest = false;
+	console.log("Stopping auralizr");
+	this.convolver.disconnect();
 };
 
 
-modules.export = auralizr;
+/**
+   * Expose `auralizr`.
+   */
+
+  if ('undefined' == typeof module) {
+    window.auralizr = auralizr;
+  } else {
+    module.exports = auralizr;
+  }
+
+})();
 
 
 
@@ -69,7 +98,7 @@ function gotStream(stream) {
 	};
 	ir_request.send();
 	console.log("Downloading...");
-	// Connect it to the destination to hear yourself (or any other node for processing!)
+	// Connect it to the destination to hear yourauralizr (or any other node for processing!)
 }
 
 
