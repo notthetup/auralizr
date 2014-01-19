@@ -20,10 +20,30 @@
 	allSpans.forEach(function(element) {
 		element.addEventListener('click',function(event){
 			auralizr.stop();
-			auralizr.use(this.className);
-			auralizr.start();
+			if (element.innerHTML === '▶'){
+				// Play
+				resetAllSpans();
+				auralizr.use(this.className);
+				auralizr.start();
+				enableThisSpan(element);
+			}else{
+				// Pause
+				resetAllSpans();
+			}
 		}, false)
 	})
+
+	function resetAllSpans() {
+		allSpans.forEach(function(element) {
+			element.classList.remove('enabled');
+			element.innerHTML = '▶';
+		});
+	}
+
+	function enableThisSpan(element){
+		element.classList.add('enabled');
+		element.innerHTML = '❚❚';
+	}
 
 	for( var key in impulseResponses){
 		auralizr.load(impulseResponses[key], key, function (key){
