@@ -1,3 +1,15 @@
+@-webkit-keyframes bounce
+  from
+    -webkit-transform: translateY(0)
+  to
+    -webkit-transform: translateY(-10px)
+
+@keyframes bounce
+  from
+    transform: translateY(0)
+  to
+    transform: translateY(-10px)
+
 .places
   list-style-type: none
   padding: 0
@@ -64,3 +76,7 @@
       &:hover, &.enabled
         @include filter(grayscale(0%))
         -webkit-transform: translateY(-10px)
+      &.enabled
+        -webkit-animation: bounce 1s ease infinite alternate
+        -moz-animation: bounce 1s ease infinite alternate
+        animation: bounce 1s ease infinite alternate
