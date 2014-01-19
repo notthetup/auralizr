@@ -16,27 +16,24 @@
 		'stairwell' : 'https://dl.dropboxusercontent.com/u/957/IRs/converted/st.wav'
 	}
 
-	var allSpans = [].slice.call(document.getElementsByTagName('span'));
-	allSpans.forEach(function(element) {
-		element.addEventListener('click',function(event){
-			auralizr.stop();
-			if (element.innerHTML === '▶'){
-				// Play
-				resetAllSpans();
-				auralizr.use(this.className);
-				auralizr.start();
-				enableThisSpan(element);
-			}else{
-				// Pause
-				resetAllSpans();
-			}
-		}, false)
-	})
+	if (auralizr.userMediaSupport){
+		for( var key in impulseResponses){
+			auralizr.load(impulseResponses[key], key, function (key){
+				var element = document.getElementsByClassName(key)[0];
+				if (element) {
+					enableClickFunctionality(element);
+					element.innerHTML = '▶';
+				}
+			});
+		}
+	}
 
 	function resetAllSpans() {
-		allSpans.forEach(function(element) {
+		var allPlaces =  [].slice.call(document.getElementsByClassName('place'));
+		allPlaces.forEach(function(element) {
 			element.classList.remove('enabled');
-			element.innerHTML = '▶';
+			if (element.innerHTML === '❚❚')
+				element.innerHTML = '▶';
 		});
 	}
 
@@ -45,11 +42,19 @@
 		element.innerHTML = '❚❚';
 	}
 
-	for( var key in impulseResponses){
-		auralizr.load(impulseResponses[key], key, function (key){
-			var span = document.getElementsByClassName(key)[0];
-			if (span) console.log('enable span ' + key);
-		});
+	function enableClickFunctionality(element){
+		element.addEventListener('click',function(event){
+			auralizr.stop();
+			if (element.innerHTML === '▶'){
+				resetAllSpans();
+				auralizr.use(this.className);
+				auralizr.start();
+				enableThisSpan(element);
+			}else{
+						// Pause
+						resetAllSpans();
+					}
+				}, false);
 	}
 
 })();

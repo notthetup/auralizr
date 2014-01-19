@@ -71,4 +71,5 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['compass','jshint','uglify','browserify']);
   grunt.registerTask('serve', ['compass','jshint','uglify','browserify', 'connect', 'watch' ]);
+  grunt.registerTask('serve-nc', ['jshint','uglify','browserify', 'connect', 'watch' ]);
 };
