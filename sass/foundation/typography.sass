@@ -7,10 +7,25 @@ body
 
 h1, h2, h3, h4, h5, h6
   font-family: $serif
+  margin: 0
 
 a
   text-decoration: none
   &:link, &:visited
-    color: blue
+    color: $green
   &:hover, &:active
-    color: red
+    color: $red
+
+.title, .subtitle, .info
+  text-align: center
+
+.title
+  color: $red
+  font-size: 3em
+
+.subtitle
+  color: $green
+  font-size: 1em
+
+.info
+  margin-bottom: 2em

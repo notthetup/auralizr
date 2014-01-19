@@ -18,7 +18,7 @@
 			return null;
 		}
 
-		//this.userMediaSupport = true;
+		this.userMediaSupport = true;
 
 		navigator.getUserMedia( {audio:true}, function (stream) {
 			self.isMicEnabled = true;

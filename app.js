@@ -2,13 +2,6 @@
 	var aur = require('./js/auralizr.js');
 	var auralizr = new aur();
 
-	/*var impulseResponses = {
-		'mausoleum' : 'http://notthetup.github.io/auralizr/audio/h.wav',
-		'basement' : 'http://notthetup.github.io/auralizr/audio/s1.wav',
-		'chapel' : 'http://notthetup.github.io/auralizr/audio/sb.wav',
-		'stairwell' : 'http://notthetup.github.io/auralizr/audio/st.wav'
-	}*/
-
 	var impulseResponses = {
 		'mausoleum' : 'https://dl.dropboxusercontent.com/u/957/IRs/converted/h.wav',
 		'basement' : 'https://dl.dropboxusercontent.com/u/957/IRs/converted/s1.wav',
@@ -47,7 +40,7 @@
 			auralizr.stop();
 			if (element.innerHTML === '▶'){
 				resetAllSpans();
-				auralizr.use(this.className);
+				auralizr.use(this.id);
 				auralizr.start();
 				enableThisSpan(element);
 			}else{

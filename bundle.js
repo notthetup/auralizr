@@ -48,7 +48,7 @@
 			auralizr.stop();
 			if (element.innerHTML === '▶'){
 				resetAllSpans();
-				auralizr.use(this.className);
+				auralizr.use(this.id);
 				auralizr.start();
 				enableThisSpan(element);
 			}else{
@@ -81,7 +81,7 @@
 			return null;
 		}
 
-		//this.userMediaSupport = true;
+		this.userMediaSupport = true;
 
 		navigator.getUserMedia( {audio:true}, function (stream) {
 			self.isMicEnabled = true;
