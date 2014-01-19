@@ -29,7 +29,8 @@
 		"grunt-contrib-watch" : "*",
 		"grunt-contrib-connect" : "*",
 		"grunt-contrib-compass": "*",
-		"grunt-contrib-uglify" : "*"
+		"grunt-contrib-uglify" : "*",
+		"grunt-browserify" : "*"
 	},
 	"license": "MIT",
 	"scripts": {
