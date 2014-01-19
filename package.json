@@ -19,6 +19,8 @@
   "devDependencies": {
     "grunt": "*",
     "grunt-cli": "*",
-    "grunt-contrib-connect": "*"
+    "grunt-contrib-connect": "*",
+    "grunt-contrib-compass": "*",
+    "grunt-contrib-watch": "*"
   }
 }
