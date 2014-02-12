@@ -1,6 +1,6 @@
 ;(function(){
 
-	function auralizr() {
+	function Auralizr() {
 		var self = this;
 		this.userMediaSupport = false;
 		this.isMicEnabled = false;
@@ -32,60 +32,65 @@
 		});
 	}
 
-	auralizr.prototype.load= function(irURL, key, callback) {
+	Auralizr.prototype.load= function(loadData, key, callback) {
 		var self = this;
-
-		var ir_request = new XMLHttpRequest();
-		ir_request.open("GET", irURL, true);
-		ir_request.responseType = "arraybuffer";
-		ir_request.onload = function () {
-			self.irArray[key] = self.audioContext.createBuffer(ir_request.response, false);
+		if (typeof loadData == 'string'){
+			//Loading from URL
+			var ir_request = new XMLHttpRequest();
+			ir_request.open("GET", loadData, true);
+			ir_request.responseType = "arraybuffer";
+			ir_request.onload = function () {
+				self.irArray[key] = self.audioContext.createBuffer(ir_request.response, false);
+				callback(key);
+			};
+			ir_request.send();
+		}else if (loadData instanceof AudioBuffer){
+			self.irArray[key] = loadData;
 			callback(key);
-		};
-		ir_request.send();
+		}
 	};
 
-	auralizr.prototype.isReady= function(key) {
+	Auralizr.prototype.isReady= function(key) {
 		return this.isMicEnabled && this.irArray.hasOwnProperty(key) && this.irArray[key] !== undefined;
 	};
 
-	auralizr.prototype.use= function(key) {
+	Auralizr.prototype.use= function(key) {
 		if ( this.irArray.hasOwnProperty(key) && this.irArray[key] !== undefined)
 			this.convolver.buffer = this.irArray[key];
 	};
 
-	auralizr.prototype.start= function() {
+	Auralizr.prototype.start= function() {
 		this.startRequest = true;
 		if (!this.isMicEnabled){
-			console.log("Couldn't start the auralizr. Mic is not enabled");
+			console.log("Couldn't start the Auralizr. Mic is not enabled");
 			return;
 		}
 		if( this.convolver.buffer === null){
-			console.log("Couldn't start the auralizr. Buffer is not loaded");
+			console.log("Couldn't start the Auralizr. Buffer is not loaded");
 			return;
 		}
 
-		console.log("Starting auralizr");
+		console.log("Starting Auralizr");
 		this.convolver.connect(this.audioContext.destination);
 		this.startRequest = false;
 
 	};
 
-auralizr.prototype.stop= function() {
-	this.startRequest = false;
-	console.log("Stopping auralizr");
-	this.convolver.disconnect();
-};
+	Auralizr.prototype.stop= function() {
+		this.startRequest = false;
+		console.log("Stopping Auralizr");
+		this.convolver.disconnect();
+	};
 
 
-/**
-	 * Expose `auralizr`.
+	/**
+	 * Expose `Auralizr`.
 	 */
 
 	if ('undefined' == typeof module) {
-		window.auralizr = auralizr;
+		window.Auralizr = Auralizr;
 	} else {
-		module.exports = auralizr;
+		module.exports = Auralizr;
 	}
 
-	})();
+})();

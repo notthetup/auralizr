@@ -1,25 +1,21 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function() {
-	var aur = require('./js/auralizr.js');
-	var auralizr = new aur();
-
-	/*var impulseResponses = {
-		'mausoleum' : 'http://notthetup.github.io/auralizr/audio/h.wav',
-		'basement' : 'http://notthetup.github.io/auralizr/audio/s1.wav',
-		'chapel' : 'http://notthetup.github.io/auralizr/audio/sb.wav',
-		'stairwell' : 'http://notthetup.github.io/auralizr/audio/st.wav'
-	}*/
+	var Auralizr = require('./js/auralizr.js');
+	var IRGen = require('./js/irgen.js');
+	var auralizr = new Auralizr();
+	var irgen = new IRGen();
 
 	var impulseResponses = {
 		'mausoleum' : 'https://dl.dropboxusercontent.com/u/957/IRs/converted/h.wav',
 		'basement' : 'https://dl.dropboxusercontent.com/u/957/IRs/converted/s1.wav',
 		'chapel' : 'https://dl.dropboxusercontent.com/u/957/IRs/converted/sb.wav',
 		'stairwell' : 'https://dl.dropboxusercontent.com/u/957/IRs/converted/st.wav'
-	}
+	};
 
 	if (auralizr.userMediaSupport){
 		for( var key in impulseResponses){
 			auralizr.load(impulseResponses[key], key, function (key){
+			//auralizr.load(irgen.getBuffer(10), key, function (key){
 				var element = document.getElementsByClassName(key)[0];
 				if (element) {
 					enableClickFunctionality(element);
@@ -52,18 +48,17 @@
 				auralizr.start();
 				enableThisSpan(element);
 			}else{
-						// Pause
-						resetAllSpans();
-					}
-				}, false);
+				// Pause
+				resetAllSpans();
+			}
+		}, false);
 	}
-
 })();
 
-},{"./js/auralizr.js":2}],2:[function(require,module,exports){
+},{"./js/auralizr.js":2,"./js/irgen.js":3}],2:[function(require,module,exports){
 ;(function(){
 
-	function auralizr() {
+	function Auralizr() {
 		var self = this;
 		this.userMediaSupport = false;
 		this.isMicEnabled = false;
@@ -95,62 +90,103 @@
 		});
 	}
 
-	auralizr.prototype.load= function(irURL, key, callback) {
+	Auralizr.prototype.load= function(loadData, key, callback) {
 		var self = this;
-
-		var ir_request = new XMLHttpRequest();
-		ir_request.open("GET", irURL, true);
-		ir_request.responseType = "arraybuffer";
-		ir_request.onload = function () {
-			self.irArray[key] = self.audioContext.createBuffer(ir_request.response, false);
+		if (typeof loadData == 'string'){
+			//Loading from URL
+			var ir_request = new XMLHttpRequest();
+			ir_request.open("GET", loadData, true);
+			ir_request.responseType = "arraybuffer";
+			ir_request.onload = function () {
+				self.irArray[key] = self.audioContext.createBuffer(ir_request.response, false);
+				callback(key);
+			};
+			ir_request.send();
+		}else if (loadData instanceof AudioBuffer){
+			self.irArray[key] = loadData;
 			callback(key);
-		};
-		ir_request.send();
+		}
 	};
 
-	auralizr.prototype.isReady= function(key) {
+	Auralizr.prototype.isReady= function(key) {
 		return this.isMicEnabled && this.irArray.hasOwnProperty(key) && this.irArray[key] !== undefined;
 	};
 
-	auralizr.prototype.use= function(key) {
+	Auralizr.prototype.use= function(key) {
 		if ( this.irArray.hasOwnProperty(key) && this.irArray[key] !== undefined)
 			this.convolver.buffer = this.irArray[key];
 	};
 
-	auralizr.prototype.start= function() {
+	Auralizr.prototype.start= function() {
 		this.startRequest = true;
 		if (!this.isMicEnabled){
-			console.log("Couldn't start the auralizr. Mic is not enabled");
+			console.log("Couldn't start the Auralizr. Mic is not enabled");
 			return;
 		}
 		if( this.convolver.buffer === null){
-			console.log("Couldn't start the auralizr. Buffer is not loaded");
+			console.log("Couldn't start the Auralizr. Buffer is not loaded");
 			return;
 		}
 
-		console.log("Starting auralizr");
+		console.log("Starting Auralizr");
 		this.convolver.connect(this.audioContext.destination);
 		this.startRequest = false;
 
 	};
 
-auralizr.prototype.stop= function() {
-	this.startRequest = false;
-	console.log("Stopping auralizr");
-	this.convolver.disconnect();
-};
+	Auralizr.prototype.stop= function() {
+		this.startRequest = false;
+		console.log("Stopping Auralizr");
+		this.convolver.disconnect();
+	};
 
 
-/**
-	 * Expose `auralizr`.
+	/**
+	 * Expose `Auralizr`.
 	 */
 
 	if ('undefined' == typeof module) {
-		window.auralizr = auralizr;
+		window.Auralizr = Auralizr;
 	} else {
-		module.exports = auralizr;
+		module.exports = Auralizr;
 	}
 
-	})();
+})();
+
+},{}],3:[function(require,module,exports){
+;(function(){
+
+	function IRGen() {
+		window.AudioContext = window.AudioContext || window.webkitAudioContext;
+		this.audioContext = new AudioContext();
+	}
+
+	IRGen.prototype.getBuffer = function( delayInSamples, length ){
+		if (!length)
+			length = 256;
+		if (!delayInSamples)
+			delayInSamples = 0;
+
+		var array = new Float32Array(length);
+		array[delayInSamples] = 1;
+
+		var audioBuf = this.audioContext.createBuffer(2,length,44100);
+
+		audioBuf.getChannelData(0).set(array);
+		audioBuf.getChannelData(1).set(array);
+
+		return audioBuf;
+	};
+
+	/**
+	 * Expose `Auralizr`.
+	 */
+
+	if ('undefined' == typeof module) {
+		window.IRGen = IRGen;
+	} else {
+		module.exports = IRGen;
+	}
+})();
 
 },{}]},{},[1])

@@ -1,17 +1,20 @@
 (function() {
-	var aur = require('./js/auralizr.js');
-	var auralizr = new aur();
+	var Auralizr = require('./js/auralizr.js');
+	var IRGen = require('./js/irgen.js');
+	var auralizr = new Auralizr();
+	var irgen = new IRGen();
 
 	var impulseResponses = {
 		'mausoleum' : 'https://dl.dropboxusercontent.com/u/957/IRs/converted/h.wav',
 		'basement' : 'https://dl.dropboxusercontent.com/u/957/IRs/converted/s1.wav',
 		'chapel' : 'https://dl.dropboxusercontent.com/u/957/IRs/converted/sb.wav',
 		'stairwell' : 'https://dl.dropboxusercontent.com/u/957/IRs/converted/st.wav'
-	}
+	};
 
 	if (auralizr.userMediaSupport){
 		for( var key in impulseResponses){
 			auralizr.load(impulseResponses[key], key, function (key){
+			//auralizr.load(irgen.getBuffer(10), key, function (key){
 				var element = document.getElementsByClassName(key)[0];
 				if (element) {
 					enableClickFunctionality(element);
@@ -44,10 +47,9 @@
 				auralizr.start();
 				enableThisSpan(element);
 			}else{
-						// Pause
-						resetAllSpans();
-					}
-				}, false);
+				// Pause
+				resetAllSpans();
+			}
+		}, false);
 	}
-
 })();
