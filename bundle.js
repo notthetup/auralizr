@@ -98,8 +98,10 @@
 			ir_request.open("GET", loadData, true);
 			ir_request.responseType = "arraybuffer";
 			ir_request.onload = function () {
-				self.irArray[key] = self.audioContext.createBuffer(ir_request.response, false, 44100);
-				callback(key);
+				self.audioContext.decodeAudioData( ir_request.response, function ( buffer ) {
+					self.irArray[key] = buffer;
+					callback(key);
+				});
 			};
 			ir_request.send();
 		}else if (loadData instanceof AudioBuffer){
