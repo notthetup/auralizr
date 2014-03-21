@@ -98,7 +98,7 @@
 			ir_request.open("GET", loadData, true);
 			ir_request.responseType = "arraybuffer";
 			ir_request.onload = function () {
-				self.irArray[key] = self.audioContext.createBuffer(ir_request.response, false);
+				self.irArray[key] = self.audioContext.createBuffer(ir_request.response, false, 44100);
 				callback(key);
 			};
 			ir_request.send();
