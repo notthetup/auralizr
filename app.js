@@ -5,10 +5,10 @@
 	var irgen = new IRGen();
 
 	var impulseResponses = {
-		'mausoleum' : 'https://dl.dropboxusercontent.com/u/957/IRs/converted/h.wav',
-		'basement' : 'https://dl.dropboxusercontent.com/u/957/IRs/converted/s1.wav',
-		'chapel' : 'https://dl.dropboxusercontent.com/u/957/IRs/converted/sb.wav',
-		'stairwell' : 'https://dl.dropboxusercontent.com/u/957/IRs/converted/st.wav'
+		'mausoleum' : '../audio/h.wav',
+		'basement' : '../audio/s1.wav',
+		'chapel' : '../audio/sb.wav',
+		'stairwell' : '../audio/st.wav'
 	};
 
 	if (auralizr.userMediaSupport){
