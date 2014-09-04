@@ -20,7 +20,8 @@
 
 		this.userMediaSupport = true;
 
-		navigator.getUserMedia( {audio:true}, function (stream) {
+		var constraints = { audio: { optional: [{ echoCancellation: false }] } };
+		navigator.getUserMedia( constraints, function (stream) {
 			self.isMicEnabled = true;
 			var mediaStreamSource = self.audioContext.createMediaStreamSource( stream );
 			mediaStreamSource.connect(self.convolver);
