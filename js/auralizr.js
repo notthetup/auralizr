@@ -20,7 +20,7 @@
 
 		this.userMediaSupport = true;
 
-		var audioOpts = {
+		var constraints = {
 		    mandatory: {
 		      googEchoCancellation: false,
 		      googAutoGainControl: false,
