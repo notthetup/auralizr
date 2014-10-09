@@ -20,8 +20,16 @@
 
 		this.userMediaSupport = true;
 
-		var constraints = { audio: { optional: [{ echoCancellation: false }] } };
-		navigator.getUserMedia( constraints, function (stream) {
+		var audioOpts = {
+		    mandatory: {
+		      googEchoCancellation: false,
+		      googAutoGainControl: false,
+		      googNoiseSuppression: false,
+		      googHighpassFilter: false
+		    },
+		    optional: []
+		};
+		navigator.getUserMedia( {audio: constraints}, function (stream) {
 			self.isMicEnabled = true;
 			var mediaStreamSource = self.audioContext.createMediaStreamSource( stream );
 			mediaStreamSource.connect(self.convolver);
