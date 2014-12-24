@@ -8,14 +8,14 @@ module.exports = function(grunt) {
     browserify: {
       basic: {
         src: 'public/js/app.js',
-        dest: 'public/js/bundle.js'
+        dest: 'public/bundle.js'
       }
     },
     compass: {
       production: {
         options: {
           specify: 'pubic/sass/style.sass',
-          cssPath: '.',
+          cssPath: 'public/',
           outputStyle: 'compressed',
           noLineComments: true
         }
@@ -30,19 +30,7 @@ module.exports = function(grunt) {
       }
     },
     jshint: {
-      all: ['Gruntfile.js', '<%= dirs.src %>/*.js']
-    },
-    uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
-        preserveComments: false,
-        compress: true,
-        mangle: true
-      },
-      build: {
-        src: '<%= dirs.src %>/<%= pkg.name %>.js',
-        dest: '<%= dirs.dest %>/<%= pkg.name %>.min.js'
-      }
+      all: ['Gruntfile.js', 'lib/*.js'] //'public/js/*.js'
     },
     watch: {
       css: {
@@ -54,7 +42,7 @@ module.exports = function(grunt) {
       },
       scripts: {
         files: ['<%= dirs.src %>/*.js','app.js'],
-        tasks: ['jshint','uglify','browserify'],
+        tasks: ['jshint','browserify'],
         options: {
           spawn: false,
         }
@@ -65,11 +53,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-compass');
 
-  grunt.registerTask('default', ['compass','jshint','uglify','browserify']);
-  grunt.registerTask('serve', ['compass','jshint','uglify','browserify', 'connect', 'watch' ]);
-  grunt.registerTask('serve-nc', ['jshint','uglify','browserify', 'connect', 'watch' ]);
+  grunt.registerTask('default', ['compass','jshint','browserify']);
+  grunt.registerTask('serve', ['compass','jshint','browserify', 'connect', 'watch' ]);
+  grunt.registerTask('serve-nc', ['jshint','browserify', 'connect', 'watch' ]);
 };

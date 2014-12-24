@@ -1,5 +1,5 @@
 (function() {
-	var Auralizr = require('lib/auralizr.js');
+	var Auralizr = require('../../lib/auralizr.js');
 	var auralizr = new Auralizr();
 
 	var impulseResponses = {
