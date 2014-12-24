@@ -1,9 +1,9 @@
 {
   "name": "auralizr",
   "preferGlobal": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Chinmay Pendharkar",
-  "description": "auralization using webaudioapi",
+  "description": "acoustic auralization using web audio",
   "contributors": [
     "Chinmay Pendharkar <notthetup@gmail.com>",
     "Sayanee Basu <sayanee@gmail.com>"
@@ -14,7 +14,7 @@
     "auralization"
   ],
   "main": ".",
-  "homepage": "http://github.io/notthetup/auralizr",
+  "homepage": "http://chinpen.net/auralizr",
   "repository": {
     "type": "git",
     "url": "https://github.com/notthetup/auralizr"
@@ -23,19 +23,17 @@
     "url": "https://github.com/notthetup/auralizr/issues"
   },
   "devDependencies": {
-    "browserify": "7.0.3",
-    "grunt": "~0.4.5",
-    "grunt-browserify": "^3.2.1",
-    "grunt-contrib-compass": "^1.0.1",
-    "grunt-contrib-connect": "^0.9.0",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-uglify": "^0.6.0",
-    "grunt-contrib-watch": "^0.6.1"
+    "gulp": "^3.8.10",
+    "gulp-browserify": "^0.5.0",
+    "gulp-compass": "^2.0.3",
+    "gulp-jshint": "^1.9.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-webserver": "^0.9.0"
   },
   "license": "MIT",
   "scripts": {
-    "build": "grunt",
-    "start": "grunt serve"
+    "build": "gulp",
+    "start": "gulp serve"
   },
   "engines": {
     "node": ">=0.10"

@@ -3,21 +3,22 @@
 	var auralizr = new Auralizr();
 
 	var impulseResponses = {
-		'mausoleum' : 'audio/h.wav',
-		'basement' : 'audio/s1.wav',
-		'chapel' : 'audio/sb.wav',
-		'stairwell' : 'audio/st.wav'
+		'mausoleum' : 'public/audio/h.wav',
+		'basement' : 'public/audio/s1.wav',
+		'chapel' : 'public/audio/sb.wav',
+		'stairwell' : 'public/audio/st.wav'
 	};
 
 	if (auralizr.userMediaSupport){
-		for( var key in impulseResponses){
-			auralizr.load(impulseResponses[key], key, function (key){
+		var onAuralizrLoad = function (key){
 				var element = document.getElementsByClassName(key)[0];
 				if (element) {
 					enableClickFunctionality(element);
 					element.innerHTML = '▶';
 				}
-			});
+			};
+		for( var key in impulseResponses){
+			auralizr.load(impulseResponses[key], key, onAuralizrLoad);
 		}
 	}
 
