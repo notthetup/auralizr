@@ -7,14 +7,14 @@ module.exports = function(grunt) {
     },
     browserify: {
       basic: {
-        src: 'app.js',
-        dest: 'bundle.js'
+        src: 'public/js/app.js',
+        dest: 'public/js/bundle.js'
       }
     },
     compass: {
       production: {
         options: {
-          specify: 'sass/style.sass',
+          specify: 'pubic/sass/style.sass',
           cssPath: '.',
           outputStyle: 'compressed',
           noLineComments: true

@@ -1,8 +1,6 @@
 (function() {
-	var Auralizr = require('./js/auralizr.js');
-	var IRGen = require('./js/irgen.js');
+	var Auralizr = require('lib/auralizr.js');
 	var auralizr = new Auralizr();
-	var irgen = new IRGen();
 
 	var impulseResponses = {
 		'mausoleum' : 'audio/h.wav',
@@ -14,7 +12,6 @@
 	if (auralizr.userMediaSupport){
 		for( var key in impulseResponses){
 			auralizr.load(impulseResponses[key], key, function (key){
-			//auralizr.load(irgen.getBuffer(10), key, function (key){
 				var element = document.getElementsByClassName(key)[0];
 				if (element) {
 					enableClickFunctionality(element);
