@@ -3,6 +3,7 @@ var path = require('path');
 
 
 var gulp = require('gulp');
+var merge = require('merge-stream');
 var jshint = require('gulp-jshint');
 var compass = require('gulp-compass');
 var webserver = require('gulp-webserver');
@@ -27,10 +28,17 @@ gulp.task('jshint', function() {
 
 
 gulp.task('build', ['jshint'] , function() {
-  return gulp.src('public/js/app.js')
+  var main = gulp.src('public/js/app.js')
     .pipe(browserify())
     .pipe(rename('bundle.js'))
     .pipe(gulp.dest('public'));
+
+  var tracking = gulp.src('public/js/tracking.js')
+    .pipe(browserify())
+    .pipe(rename('bundle-tracking.js'))
+    .pipe(gulp.dest('public'));
+
+  return merge(main, tracking);
 });
 
 
@@ -43,7 +51,7 @@ gulp.task('watch', function() {
 });
 
 
-gulp.task('serve',['watch'], function() {
+gulp.task('serve',['build','watch'], function() {
   gulp.src('./')
     .pipe(webserver({
       open: true

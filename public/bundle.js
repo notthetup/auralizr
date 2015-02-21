@@ -11,6 +11,7 @@
 		window.AudioContext = window.AudioContext || window.webkitAudioContext;
 		this.audioContext = new AudioContext();
 		this.convolver = this.audioContext.createConvolver();
+		this.convolver.normalize = false;
 
 		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia ;
 
@@ -52,7 +53,9 @@
 			ir_request.onload = function () {
 				self.audioContext.decodeAudioData( ir_request.response, function ( buffer ) {
 					self.irArray[key] = buffer;
-					callback(key);
+					if (typeof callback === 'function'){
+						callback(key);
+					}
 				});
 			};
 			ir_request.send();
