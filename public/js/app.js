@@ -38,14 +38,17 @@
 
 	function enableClickFunctionality(element){
 		element.addEventListener('click',function(event){
-			auralizr.stop();
+
 			if (element.innerHTML === '▶'){
 				resetAllSpans();
 				auralizr.use(this.id);
-				auralizr.start();
+				if (!auralizr.isRunning){
+					auralizr.start();
+				}
 				enableThisSpan(element);
 			}else{
 				// Pause
+				auralizr.stop();
 				resetAllSpans();
 			}
 		}, false);
