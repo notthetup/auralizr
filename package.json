@@ -23,13 +23,13 @@
     "url": "https://github.com/notthetup/auralizr/issues"
   },
   "devDependencies": {
-    "gulp": "^3.8.11",
+    "gulp": "^3.9.0",
     "gulp-browserify": "^0.5.1",
-    "gulp-compass": "^2.0.3",
-    "gulp-jshint": "^1.9.2",
-    "gulp-rename": "^1.2.0",
-    "gulp-webserver": "^0.9.0",
-    "merge-stream": "^0.1.7"
+    "gulp-compass": "^2.1.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-webserver": "^0.9.1",
+    "merge-stream": "^0.1.8"
   },
   "license": "MIT",
   "scripts": {
