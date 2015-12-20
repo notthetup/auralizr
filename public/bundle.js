@@ -31,10 +31,8 @@
 		this.convolvers[0].connect(this.faders[0]);
 		this.convolvers[1].connect(this.faders[1]);
 
-		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia ;
-
-		if (! navigator.getUserMedia){
-			console.error('Unfortunately, your browser doesn\'t support the getUserMedia API needed for this expiriment. Try using Chrome instead');
+		if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+			console.error('Unfortunately, your browser doesn\'t support the getUserMedia API. You may switch to Google Chrome and if you\'re already on Chrome, you might need to turn on some flags. https://developers.google.com/web/updates/2015/10/media-devices?hl=en');
 			return null;
 		}
 
@@ -49,7 +47,7 @@
 		    },
 		    optional: []
 		};
-		navigator.getUserMedia( {audio: constraints}, function (stream) {
+		navigator.mediaDevices.getUserMedia( {audio: constraints}).then(function (stream) {
 			self.isMicEnabled = true;
 			var mediaStreamSource = self.audioContext.createMediaStreamSource( stream );
 			mediaStreamSource.connect(self.convolvers[0]);
@@ -57,8 +55,8 @@
 			if (self.startRequest){
 				self.start();
 			}
-		} , function(){
-			console.error("Error getting audio stream from getUserMedia");
+		}).catch(function(){
+			console.error("Error getting audio stream from getUserMedia. Make sure you're on https.");
 		});
 	}
 
