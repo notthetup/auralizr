@@ -1,10 +1,10 @@
-#Auralizr
+# Auralizr
 
 Simple Auralization Test using the Web Audio API and getUserMedia/Stream API
 
 The demo uses the [getUserMedia/Stream API](http://caniuse.com/stream) to receive audio from the microphone and the [Web Audio API](http://webaudio.github.io/web-audio-api/) for convolution.
 
-#Credits
+# Credits
 
 The 4 photos were from Wikipedia Commons:
 
