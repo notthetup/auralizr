@@ -1,7 +1,6 @@
 {
   "name": "auralizr",
-  "preferGlobal": true,
-  "version": "0.2.0",
+  "version": "1.0.0",
   "author": "Chinmay Pendharkar",
   "description": "acoustic auralization using web audio",
   "contributors": [
@@ -13,7 +12,7 @@
     "webaudioapi",
     "auralization"
   ],
-  "main": ".",
+  "main": "auralizr.js",
   "homepage": "http://chinpen.net/auralizr",
   "repository": {
     "type": "git",
@@ -22,22 +21,10 @@
   "bugs": {
     "url": "https://github.com/notthetup/auralizr/issues"
   },
-  "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-browserify": "^0.5.1",
-    "gulp-compass": "^2.1.0",
-    "gulp-jshint": "^2.0.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-webserver": "^0.9.1",
-    "jshint": "^2.9.1-rc1",
-    "merge-stream": "^1.0.0"
-  },
-  "license": "MIT",
   "scripts": {
-    "build": "gulp",
-    "start": "gulp serve"
+    "build": "node-sass sass/style.sass -o public/style.css"
   },
-  "engines": {
-    "node": ">=0.10"
+  "devDependencies": {
+    "node-sass": "^6.0.1"
   }
 }
