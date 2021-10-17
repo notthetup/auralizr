@@ -13,27 +13,26 @@ document.addEventListener('DOMContentLoaded', async () => {
 		await loadIR(ir);
 		let btn = document.getElementById(ir.id);
 		btn.addEventListener('click', evt => {
-			let el = evt.target
+			let el = btn.querySelector('.playpause');
 			if (el.innerHTML === '▶'){
 				resetAll();
 				aur.setIR(ir.buffer);
 				if (!aur.isRunning) aur.start();
-				el.classList.add('enabled');
+				btn.classList.add('enabled');
 				el.innerHTML = '❚❚';
 			}else{
 				aur.stop();
 				resetAll();
 			}
 		});
-		btn.innerHTML = '▶';
+		btn.querySelector('.playpause').innerHTML = '▶';
 	});
 });
 
 function resetAll() {
-	[].slice.call(document.getElementsByClassName('place')).forEach( el => {
+	[].slice.call(document.getElementsByClassName('card')).forEach( el => {
 		el.classList.remove('enabled');
-		if (el.innerHTML === '❚❚')
-		el.innerHTML = '▶';
+		if (el.querySelector('.playpause').innerHTML === '❚❚') el.querySelector('.playpause').innerHTML = '▶';
 	});
 }
 

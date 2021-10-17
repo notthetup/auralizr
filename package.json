@@ -20,11 +20,5 @@
   },
   "bugs": {
     "url": "https://github.com/notthetup/auralizr/issues"
-  },
-  "scripts": {
-    "build": "node-sass sass/style.sass -o public/style.css"
-  },
-  "devDependencies": {
-    "node-sass": "^6.0.1"
   }
 }
